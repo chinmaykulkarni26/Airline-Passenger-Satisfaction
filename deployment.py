@@ -50,7 +50,7 @@ data = pd.read_csv('train.csv')
 df = pd.DataFrame(data[['Type of Travel','Class','Flight Distance','Inflight wifi service','Online boarding','Seat comfort','Inflight entertainment','On-board service','Leg room service','satisfaction']])
 df = df.dropna()
 c = ['Type of Travel', 'Class', 'satisfaction']
-df[c] = df[c].apply(LabelEncoder.fit_transform)
+df[c] = df[c].apply(LabelEncoder().fit_transform)
 
 X = df.iloc[:, 0:9]
 y = df.iloc[:, 9]
