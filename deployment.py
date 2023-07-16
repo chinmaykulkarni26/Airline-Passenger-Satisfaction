@@ -7,7 +7,7 @@
 import pandas as pd
 import numpy as np
 from sklearn.svm import SVC
-from sklearn.preprocessing import LabelEncoder
+from sklearn.preprocessing import LabelEncoder, MinMaxScaler
 import streamlit as st
 from sklearn.model_selection import train_test_split
 
@@ -54,10 +54,16 @@ df[c] = df[c].apply(LabelEncoder().fit_transform)
 
 X = df.iloc[:, 0:9]
 y = df.iloc[:, 9]
+
 X_train,X_test,y_train,y_test = train_test_split(X,y,test_size=0.3, random_state=101)
 
+mmscaler=MinMaxScaler()
+X_train_scaled = mmscaler.fit_transform(X_train)
+X_test_scaled = mmscaler.transform(X_test)
+
+
 svm = SVC()
-model = svm.fit(X_train.values, y_train.values)
+model = svm.fit(X_train_scaled.values, y_train.values)
 
 def satisfaction_prediction_svm(type_of_travel, class_, Flight_distance, Inflight_wifi_service, Online_boarding, Seat_comfort, Inflight_entertainment, On_board_service, Leg_room_service):
     prediction = model.predict([[type_of_travel, class_, Flight_distance, Inflight_wifi_service, Online_boarding, Seat_comfort, Inflight_entertainment, On_board_service, Leg_room_service]])
