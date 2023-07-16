@@ -63,7 +63,7 @@ X_test_scaled = mmscaler.transform(X_test)
 
 
 svm = SVC()
-model = svm.fit(X_train_scaled.values, y_train.values)
+model = svm.fit(X_train_scaled, y_train.values)
 
 def satisfaction_prediction_svm(type_of_travel, class_, Flight_distance, Inflight_wifi_service, Online_boarding, Seat_comfort, Inflight_entertainment, On_board_service, Leg_room_service):
     prediction = model.predict([[type_of_travel, class_, Flight_distance, Inflight_wifi_service, Online_boarding, Seat_comfort, Inflight_entertainment, On_board_service, Leg_room_service]])
